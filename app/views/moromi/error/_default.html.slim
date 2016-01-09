@@ -1,0 +1,25 @@
+doctype html
+html lang="ja"
+  head
+    meta charset="utf-8"
+    title= title
+    meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    meta name="robots" content="noindex"
+  body
+    div
+      h1= "#{status} #{title}"
+
+      - unless Rails.env.production?
+        table
+          tbody
+            tr
+              td code
+              td= exception.code
+            tr
+              td debug_message
+              td= exception.debug_message
+
+            - exception.errors.each do |error|
+              tr
+                td error
+                td= error

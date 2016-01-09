@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <title>Need Force Update</title>
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+  <meta name="robots" content="noindex" />
+</head>
+<body>
+<div>
+  <h1><%= status %> <%= title %></h1>
+  <% unless Rails.env.production? %>
+    <table>
+      <tbody>
+      <tr>
+        <td>code</td>
+        <td><%= exception.code %></td>
+      </tr>
+
+      <tr>
+        <td>debug_message</td>
+        <td><%= exception.debug_message %></td>
+      </tr>
+
+      <% exception.errors.each do |error| %>
+        <tr>
+          <td>error</td>
+          <td><%= error %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>
+</body>
+</html>
