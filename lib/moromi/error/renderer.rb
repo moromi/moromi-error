@@ -51,7 +51,7 @@ module Moromi::Error
       options = options || self.class::default_moromi_error_renderer_options
       e = Moromi::Error::Default.make(exception)
 
-      self.class::moromi_error_logger.write(status, title, exception, options, locals)
+      self.class::moromi_error_logger.write(self, status, title, exception, options, locals)
 
       options = {status: status}.merge(options)
       locals = {status: status, title: title, exception: e}.merge(locals)
