@@ -6,9 +6,15 @@ jobs:
       - image: circleci/ruby:latest
     steps:
       - checkout
+      - restore_cache:
+          key: bundle
       - run:
           name: Install gems
           command: bundle install
+      - save_cache:
+          key: bundle
+          paths:
+            - vendor/bundle
       - run:
           name: Generate database.yml
           command: |
@@ -26,7 +32,6 @@ jobs:
       - run:
           name: RSpec
           command: |
-            cd spec
             RAILS_ENV=test bundle exec rspec --color --format d --require spec_helper --require rails_helper
   ruby-2.4:
     <<: *build
