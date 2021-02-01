@@ -1,18 +1,20 @@
 en:
   strings:
     moromi-error:
-      an_error_has_occurred: 'An error has occurred.'
-      validation_error: 'Validation error.'
-      not_found: 'Not found.'
-      permission_denied: 'Permission denied.'
-      authentication_failed: 'Authentication failed.'
-      need_force_update: 'Need update.'
+      an_error_has_occurred: 'An error has occurred. error_code = %{error_code}'
+      validation_error: 'Validation error. error_code = %{error_code}'
+      not_found: 'Not found. error_code = %{error_code}'
+      permission_denied: 'Permission denied. error_code = %{error_code}'
+      authentication_failed: 'Authentication failed. error_code = %{error_code}'
+      need_force_update: 'Need update. error_code = %{error_code}'
+      too_many_requests: 'Too Many Requests. error_code = %{error_code}'
 ja:
   strings:
     moromi-error:
-      an_error_has_occurred: 'エラーが発生しました。'
-      validation_error: '不正な入力です。'
-      not_found: '見つかりませんでした。'
-      permission_denied: '権限がありません。'
-      authentication_failed: '認証に失敗しました。'
-      need_force_update: '新しいバージョンのアプリがあります。'
+      an_error_has_occurred: 'エラーが発生しました。 error_code = %{error_code}'
+      validation_error: '不正な入力です。 error_code = %{error_code}'
+      not_found: '見つかりませんでした。 error_code = %{error_code}'
+      permission_denied: '権限がありません。 error_code = %{error_code}'
+      authentication_failed: '認証に失敗しました。 error_code = %{error_code}'
+      need_force_update: '新しいバージョンのアプリがあります。 error_code = %{error_code}'
+      too_many_requests: '所定の期間内に送信されたリクエスト数が多すぎます。 error_code = %{error_code}'

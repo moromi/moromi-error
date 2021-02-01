@@ -5,7 +5,6 @@ module Moromi::Error
 
     ERROR_TEMPLATES = {
       default: 'moromi/error/default',
-      force_update: 'moromi/error/force_update'
     }.freeze
 
     included do
@@ -40,9 +39,21 @@ module Moromi::Error
       render_error(410, 'Gone', exception, options: options, locals: locals)
     end
 
+    def render_too_many_requests(exception: Moromi::Error::Default.new, options: nil, locals: {})
+      render_error(429, 'Too Many Requests', exception, options: options, locals: locals)
+    end
+
     def render_force_update(exception: Moromi::Error::NeedForceUpdate.new, options: nil, locals: {})
-      options = options || {partial: ERROR_TEMPLATES[:force_update], layout: false}
+      options = options || {partial: ERROR_TEMPLATES[:default], layout: false}
       render_bad_request(exception: exception, options: options, locals: locals)
+    end
+
+    def render_internal_server_error(exception: Moromi::Error::Default.new, options: nil, locals: {})
+      render_error(500, 'Internal Server Error', exception, options: options, locals: locals)
+    end
+
+    def render_service_unavailable(exception: Moromi::Error::Default.new, options: nil, locals: {})
+      render_error(503, 'Service Unavailable', exception, options: options, locals: locals)
     end
 
     private
@@ -64,6 +75,8 @@ module Moromi::Error
         format.html &render_block
         format.json &render_block
       end
+    rescue ActionController::UnknownFormat
+      render status: 406, body: "Not Acceptable"
     end
   end
 end

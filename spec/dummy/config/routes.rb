@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   get 'permission_denied' => 'errors#permission_denied'
   get 'authentication_failed' => 'errors#authentication_failed'
   get 'need_force_update' => 'errors#need_force_update'
+  get 'too_many_requests' => 'errors#too_many_requests'
 end

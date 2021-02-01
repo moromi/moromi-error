@@ -6,7 +6,7 @@ describe 'Error Renderer' do
   describe 'Default' do
     let(:path) { '/default_error.json' }
 
-    include_examples '400 Bad Request'
+    include_examples '500 Internal Server Error'
 
     it 'returns error json' do
       json = JSON.parse(response.body)
@@ -71,7 +71,19 @@ describe 'Error Renderer' do
     it 'returns error json' do
       json = JSON.parse(response.body)
       expect(json['code']).to eq Moromi::Error::NeedForceUpdate::DEFAULT_CODE
-      expect(json['store_url']).to eq Moromi::Error.config.store_url
+      expect(json['detail_url']).to eq 'https://example.com'
+      expect(json['errors']).not_to be_empty
+    end
+  end
+
+  describe 'TooManyRequests' do
+    let(:path) { '/too_many_requests.json' }
+
+    include_examples '429 Too Many Requests'
+
+    it 'returns error json' do
+      json = JSON.parse(response.body)
+      expect(json['code']).to eq Moromi::Error::TooManyRequests::DEFAULT_CODE
       expect(json['errors']).not_to be_empty
     end
   end

@@ -23,6 +23,12 @@ class ErrorsController < ApplicationController
   end
 
   def need_force_update
-    raise Moromi::Error::NeedForceUpdate
+    e = Moromi::Error::NeedForceUpdate.new
+    e.detail_url = 'https://example.com'
+    raise e
+  end
+
+  def too_many_requests
+    raise Moromi::Error::TooManyRequests
   end
 end

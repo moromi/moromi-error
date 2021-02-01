@@ -16,7 +16,8 @@ rails g moromi:error:views [options]
         desc ''
         def copy_or_fetch #:nodoc:
           copy_html_templates
-          copy_json_templates
+          copy_jbuilder_templates
+          copy_jb_templates
         end
 
         private
@@ -28,8 +29,15 @@ rails g moromi:error:views [options]
           end
         end
 
-        def copy_json_templates
+        def copy_jbuilder_templates
           filename_pattern = File.join self.class.source_root, "*.json.jbuilder"
+          Dir.glob(filename_pattern).map {|f| File.basename f}.each do |f|
+            copy_file f, "app/views/moromi/error/#{f}"
+          end
+        end
+
+        def copy_jb_templates
+          filename_pattern = File.join self.class.source_root, "*.json.jb"
           Dir.glob(filename_pattern).map {|f| File.basename f}.each do |f|
             copy_file f, "app/views/moromi/error/#{f}"
           end

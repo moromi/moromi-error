@@ -5,7 +5,9 @@ module Moromi
 
       config_accessor :debug
       config_accessor :logger
-      config_accessor :store_url
+      config_accessor :information_builder_klass
+      config_accessor :severity_mappings
+      config_accessor :use_exception_notifier
     end
   end
 end
