@@ -1,8 +1,7 @@
 # Moromi::Error
 
 [![Latest Version](https://img.shields.io/gem/v/moromi-error.svg)](http://rubygems.org/gems/moromi-error)
-[![Circle CI](https://circleci.com/gh/moromi/moromi-error.svg?style=svg)](https://circleci.com/gh/moromi/moromi-error)
-
+[![Build Status](https://github.com/moromi/moromi-error/workflows/Ruby/badge.svg)](https://github.com/moromi/moromi-error/actions)
 Error templates.
 
 ## Installation
@@ -30,7 +29,6 @@ Or install it yourself as:
 ```ruby
 Moromi::Error.configure do |config|
   config.debug = true
-  config.store_url = 'https://itunes.apple.com/jp/app/idxxxxxxxxxx'
 end
 ```
 
@@ -55,13 +53,13 @@ it's optional module.
 
 ### Copy Template
 
-- jbuilder and erb
+- jb and jbuilder and erb
 
 ```ruby
 bundle exec rails g moromi:error:views -e erb
 ```
 
-- jbuilder and slim
+- jb and jbuilder and slim
 
 ```ruby
 bundle exec rails g moromi:error:views -e slim

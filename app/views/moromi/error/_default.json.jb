@@ -1,0 +1,9 @@
+{
+  status: status,
+  title: title,
+  code: exception.code,
+  detail_url: exception.detail_url,
+  debug_message: exception.debug_message,
+  error_title: exception.error_title,
+  errors: exception.errors
+}

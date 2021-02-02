@@ -8,6 +8,8 @@ html lang="ja"
   body
     div
       h1= "#{status} #{title}"
+      p= "RequestId: #{request.uuid}"
+      p= exception.error_title
 
       - unless Rails.env.production?
         table
@@ -18,8 +20,17 @@ html lang="ja"
             tr
               td debug_message
               td= exception.debug_message
+            tr
+              td detail_url
+              td= exception.detail_url
 
             - exception.errors.each do |error|
               tr
                 td error
                 td= error
+
+            tr
+              td backtrace
+              td
+                - backtrace = exception.backtrace.presence || exception.original_exception&.backtrace || []
+                pre= safe_join(::Rails.backtrace_cleaner.clean(backtrace), '<br />'.html_safe)
