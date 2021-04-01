@@ -8,10 +8,12 @@ module Moromi::Error
     }.freeze
 
     included do
+      class_attribute :default_moromi_error_template_path
       class_attribute :default_moromi_error_renderer_options
       class_attribute :moromi_error_logger
 
-      self.default_moromi_error_renderer_options = {partial: ERROR_TEMPLATES[:default], layout: false}
+      self.default_moromi_error_template_path = ERROR_TEMPLATES[:default]
+      self.default_moromi_error_renderer_options = {layout: false}
       self.moromi_error_logger = Moromi::Error::DefaultLogger.new
     end
 
@@ -44,7 +46,6 @@ module Moromi::Error
     end
 
     def render_force_update(exception: Moromi::Error::NeedForceUpdate.new, options: nil, locals: {})
-      options = options || {partial: ERROR_TEMPLATES[:default], layout: false}
       render_bad_request(exception: exception, options: options, locals: locals)
     end
 
@@ -58,7 +59,8 @@ module Moromi::Error
 
     private
 
-    def render_error(status, title, exception, options: nil, locals: {})
+    def render_error(status, title, exception, options: nil, template_path: nil, locals: {})
+      template_path ||= self.class::default_moromi_error_template_path
       options = options || self.class::default_moromi_error_renderer_options
       e = Moromi::Error::Default.make(exception)
 
@@ -68,7 +70,7 @@ module Moromi::Error
       locals = {status: status, title: title, exception: e}.merge(locals)
 
       render_block = -> {
-        render options.merge({locals: locals})
+        render template_path, **options, locals: locals
       }
 
       respond_to do |format|
