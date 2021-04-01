@@ -8,7 +8,7 @@ module Moromi::Error
     }.freeze
 
     included do
-      class_attribute :moromi_error_template_path
+      class_attribute :default_moromi_error_template_path
       class_attribute :default_moromi_error_renderer_options
       class_attribute :moromi_error_logger
 
