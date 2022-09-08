@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 2.6'
 
-  spec.add_dependency 'rails', ['>= 4.2', '< 6.2']
+  spec.add_dependency 'rails', '>= 4.2'
 
   spec.add_development_dependency "jbuilder"
   spec.add_development_dependency "bundler"
