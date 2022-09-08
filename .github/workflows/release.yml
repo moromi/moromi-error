@@ -1,0 +1,33 @@
+name: Release gem
+
+on:
+  workflow_dispatch:
+    inputs:
+      rubygems-otp-code:
+        description: RubyGems OTP code
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release-gem:
+    runs-on: ubuntu-latest
+    env:
+      GEM_HOST_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
+      GEM_HOST_OTP_CODE: ${{ github.event.inputs.rubygems-otp-code }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # bundle exec rake release で git tag を見るため、tagをfetchするようにしている
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1.1
+      - name: Bundle install
+        run: bundle install
+      - name: Setup git config # bundle exec rake release でgit tagが打たれていない場合、タグを打ってpushしてくれるため用意している
+        run: |
+          git config --global user.email "taka0125@gmail.com"
+          git config --global user.name "Takahiro Ooishi"
+      - name: Release gem
+        run: bundle exec rake release
