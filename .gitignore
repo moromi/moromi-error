@@ -10,3 +10,4 @@ vendor/bundle
 vendor/bin
 Gemfile.lock
 
+gemfiles/*.gemfile.lock
