@@ -19,21 +19,25 @@ jobs:
 
       matrix:
         ruby:
-          - 2.6
-          - 2.7
-          - 3.0
-          - 3.1
-        gemfile:
-          - rails52
-          - rails61
-          - rails70
+          - '2.6'
+          - '2.7'
+          - '3.0'
+          - '3.1'
+        rails:
+          - '5.2'
+          - '6.0'
+          - '6.1'
+          - '7.0'
         exclude: # https://github.com/sue445/activerecord-compatible_legacy_migration/blob/master/.github/workflows/test.yml
-          - ruby: 2.6
-            gemfile: rails70
-          - ruby: 3.0
-            gemfile: rails52
-          - ruby: 3.1
-            gemfile: rails52
+          - ruby: '2.6'
+            rails: '7.0'
+          - ruby: '3.0'
+            rails: '5.2'
+          - ruby: '3.1'
+            rails: '5.2'
+    env:
+      BUNDLE_GEMFILE: gemfiles/rails${{ matrix.rails }}.gemfile
+      LOAD_DEFAULTS: ${{ matrix.rails }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
